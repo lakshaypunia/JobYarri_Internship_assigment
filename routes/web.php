@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\BlogController;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +25,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ]);
         })->name('dashboard');
 
-        Route::resource('blogs', BlogController::class)->except('show');
+        Route::resource('blogs', AdminBlogController::class)->except('show');
         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
         Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
         Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
     });
 });
 
-// Public routes (added in Phase 5)
-Route::get('/', fn () => view('welcome'));
+// Public routes
+Route::get('/', [BlogController::class, 'index'])->name('blogs.index');
+Route::get('/blog/{blog}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/filter', [BlogController::class, 'filter'])->name('blogs.filter');
