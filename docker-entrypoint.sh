@@ -6,6 +6,10 @@ if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force
 fi
 
+# Ensure Laravel framework directories exist
+mkdir -p storage/framework/views storage/framework/cache storage/framework/sessions storage/logs
+chown -R www-data:www-data storage bootstrap/cache
+
 # Run migrations
 php artisan migrate --force
 
