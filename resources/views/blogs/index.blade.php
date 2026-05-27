@@ -52,14 +52,13 @@
     </div>
 
     <div id="blog-results">
-        <div class="row g-4">
-            @include('blogs.partials.card-grid')
-        </div>
+        @include('blogs.partials.card-grid')
     </div>
 </div>
 
 @endsection
 
 @push('scripts')
+<script>window.FILTER_URL = "{{ route('blogs.filter') }}";</script>
 <script src="{{ asset('js/filter.js') }}"></script>
 @endpush

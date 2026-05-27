@@ -1,3 +1,4 @@
+<div class="row g-4">
 @forelse($blogs as $blog)
 <div class="col-sm-6 col-lg-4">
     <div class="card blog-card shadow-sm h-100">
@@ -42,3 +43,4 @@
     {{ $blogs->links() }}
 </div>
 @endif
+</div>
