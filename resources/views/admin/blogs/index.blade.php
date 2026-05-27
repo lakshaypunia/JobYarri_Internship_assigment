@@ -1,78 +1,129 @@
-@extends('layouts.admin')
-
+﻿@extends('layouts.admin')
 @section('title', 'Blogs')
-@section('page-title', 'Manage Blogs')
+@section('page-title', 'Blog Management')
+
+@push('styles')
+<style>
+.page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.25rem; flex-wrap: wrap; gap: .75rem;
+}
+.page-header-left h5 { font-weight: 800; font-size: 1.05rem; margin: 0; color: #0f172a; }
+.page-header-left p { font-size: .8rem; color: #64748b; margin: .2rem 0 0; }
+.btn-primary-custom {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff; border: none; border-radius: 10px;
+    padding: .6rem 1.2rem; font-size: .85rem; font-weight: 600;
+    font-family: 'Inter', sans-serif; cursor: pointer;
+    text-decoration: none; transition: opacity .2s, transform .15s;
+}
+.btn-primary-custom:hover { opacity: .9; transform: translateY(-1px); color: #fff; }
+
+.data-panel {
+    background: #fff; border-radius: 16px;
+    border: 1px solid #e2e8f0; overflow: hidden;
+}
+.data-panel-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .82rem; color: #64748b;
+}
+.blog-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: .9rem 1.25rem;
+    border-bottom: 1px solid #f8fafc;
+    transition: background .15s;
+}
+.blog-item:last-child { border-bottom: none; }
+.blog-item:hover { background: #fafbff; }
+.blog-thumb {
+    width: 56px; height: 42px; border-radius: 10px;
+    flex-shrink: 0; overflow: hidden;
+    background: linear-gradient(135deg, #1e293b, #1e3a5f);
+    display: flex; align-items: center; justify-content: center;
+}
+.blog-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.blog-item-title { font-size: .875rem; font-weight: 600; color: #0f172a; line-height: 1.4; }
+.blog-item-sub { font-size: .75rem; color: #94a3b8; margin-top: .15rem; }
+.cat-pill {
+    font-size: .7rem; font-weight: 600; padding: .22rem .7rem;
+    border-radius: 50px; background: #ede9fe; color: #7c3aed;
+    white-space: nowrap; flex-shrink: 0;
+}
+.action-btn {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid #e2e8f0; background: #fff; color: #64748b;
+    cursor: pointer; transition: all .15s; text-decoration: none;
+    font-size: .82rem;
+}
+.action-btn:hover.edit { border-color: #6366f1; background: #eef2ff; color: #6366f1; }
+.action-btn:hover.del  { border-color: #ef4444; background: #fef2f2; color: #ef4444; }
+
+.pagination-wrap { padding: .85rem 1.25rem; border-top: 1px solid #f1f5f9; }
+</style>
+@endpush
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <span class="text-muted">{{ $blogs->total() }} blogs total</span>
-    <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-1"></i> Add Blog
+<div class="page-header">
+    <div class="page-header-left">
+        <h5>All Blogs</h5>
+        <p>{{ $blogs->total() }} posts total</p>
+    </div>
+    <a href="{{ route('admin.blogs.create') }}" class="btn-primary-custom">
+        <i class="bi bi-plus-lg"></i> New Blog
     </a>
 </div>
 
-<div class="card border-0 shadow-sm">
-    <div class="card-body p-0">
-        <table class="table table-hover mb-0 align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th style="width:80px">Image</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Published</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($blogs as $blog)
-                <tr>
-                    <td>
-                        @if($blog->image)
-                            <img src="{{ asset('storage/'.$blog->image) }}"
-                                 class="rounded" width="60" height="45" style="object-fit:cover">
-                        @else
-                            <div class="rounded bg-light d-flex align-items-center justify-content-center"
-                                 style="width:60px;height:45px">
-                                <i class="bi bi-image text-muted"></i>
-                            </div>
-                        @endif
-                    </td>
-                    <td>
-                        <div class="fw-semibold">{{ Str::limit($blog->title, 55) }}</div>
-                        <small class="text-muted">{{ Str::limit($blog->short_description, 70) }}</small>
-                    </td>
-                    <td><span class="badge bg-secondary">{{ $blog->category->name }}</span></td>
-                    <td class="text-nowrap">{{ $blog->published_at?->format('d M Y') ?? '—' }}</td>
-                    <td class="text-nowrap">
-                        <a href="{{ route('admin.blogs.edit', $blog) }}"
-                           class="btn btn-sm btn-outline-primary me-1">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <form method="POST" action="{{ route('admin.blogs.destroy', $blog) }}"
-                              class="d-inline"
-                              onsubmit="return confirm('Delete this blog?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="text-center text-muted py-5">
-                        No blogs yet. <a href="{{ route('admin.blogs.create') }}">Add one</a>.
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+<div class="data-panel">
+    <div class="data-panel-header">
+        <i class="bi bi-file-earmark-text"></i>
+        Showing {{ $blogs->firstItem() }}â€“{{ $blogs->lastItem() }} of {{ $blogs->total() }} blogs
     </div>
+
+    @forelse($blogs as $blog)
+    <div class="blog-item">
+        <div class="blog-thumb">
+            @if($blog->image)
+                <img src="{{ asset('storage/'.$blog->image) }}" alt="">
+            @else
+                <i class="bi bi-image" style="color:rgba(255,255,255,.2)"></i>
+            @endif
+        </div>
+        <div class="flex-grow-1" style="min-width:0">
+            <div class="blog-item-title">{{ Str::limit($blog->title, 60) }}</div>
+            <div class="blog-item-sub">
+                <i class="bi bi-calendar3 me-1"></i>
+                {{ $blog->published_at?->format('d M Y') ?? 'No date' }}
+            </div>
+        </div>
+        <span class="cat-pill d-none d-md-inline">{{ $blog->category->name }}</span>
+        <div class="d-flex gap-1">
+            <a href="{{ route('admin.blogs.edit', $blog) }}" class="action-btn edit" title="Edit">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <form method="POST" action="{{ route('admin.blogs.destroy', $blog) }}"
+                  onsubmit="return confirm('Delete this blog?')">
+                @csrf @method('DELETE')
+                <button class="action-btn del" title="Delete" type="submit">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    @empty
+    <div class="text-center py-5" style="color:#94a3b8">
+        <i class="bi bi-file-earmark-text" style="font-size:2.5rem;opacity:.3"></i>
+        <p class="mt-3 mb-1" style="font-weight:600;color:#64748b">No blogs yet</p>
+        <a href="{{ route('admin.blogs.create') }}" style="font-size:.85rem;color:#6366f1;font-weight:600">Create your first blog â†’</a>
+    </div>
+    @endforelse
+
     @if($blogs->hasPages())
-    <div class="card-footer bg-white">
-        {{ $blogs->links() }}
-    </div>
+    <div class="pagination-wrap">{{ $blogs->links() }}</div>
     @endif
 </div>
 @endsection
+

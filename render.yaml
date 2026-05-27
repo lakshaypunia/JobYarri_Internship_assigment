@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: blogyaari
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: APP_NAME
+        value: BlogYaari
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false   # run: php artisan key:generate --show  — paste the output here
+      - key: APP_URL
+        value: https://blogyaari.onrender.com   # update with your actual Render URL
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        sync: false   # set in Render dashboard
+      - key: DB_PORT
+        sync: false
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: MYSQL_ATTR_SSL_CA
+        value: /var/www/html/storage/app/ca.pem
+      - key: SESSION_DRIVER
+        value: file
+      - key: FILESYSTEM_DISK
+        value: local
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: UPLOADTHING_SECRET
+        sync: false   # set in Render dashboard
+      - key: UPLOADTHING_APP_ID
+        sync: false
