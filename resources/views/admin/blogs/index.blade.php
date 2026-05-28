@@ -57,12 +57,44 @@
     display: inline-flex; align-items: center; justify-content: center;
     border: 1px solid #e2e8f0; background: #fff; color: #64748b;
     cursor: pointer; transition: all .15s; text-decoration: none;
-    font-size: .82rem;
+    font-size: 13px; line-height: 1; overflow: hidden;
 }
-.action-btn:hover.edit { border-color: #6366f1; background: #eef2ff; color: #6366f1; }
-.action-btn:hover.del  { border-color: #ef4444; background: #fef2f2; color: #ef4444; }
+.action-btn i { font-size: 13px; line-height: 1; display: block; }
+.action-btn.edit:hover { border-color: #6366f1; background: #eef2ff; color: #6366f1; }
+.action-btn.del:hover  { border-color: #ef4444; background: #fef2f2; color: #ef4444; }
+.blog-thumb i { font-size: 1.1rem; line-height: 1; }
 
-.pagination-wrap { padding: .85rem 1.25rem; border-top: 1px solid #f1f5f9; }
+.pagination-wrap {
+    padding: .85rem 1.25rem;
+    border-top: 1px solid #f1f5f9;
+}
+.pagination-wrap .pagination {
+    margin: 0;
+    gap: .2rem;
+}
+.pagination-wrap .page-link {
+    font-size: .78rem;
+    padding: .35rem .7rem;
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0;
+    color: #6366f1;
+    line-height: 1.5;
+}
+.pagination-wrap .page-link:hover {
+    background: #eef2ff;
+    border-color: #6366f1;
+    color: #6366f1;
+}
+.pagination-wrap .page-item.active .page-link {
+    background: #6366f1;
+    border-color: #6366f1;
+    color: #fff;
+}
+.pagination-wrap .page-item.disabled .page-link {
+    color: #cbd5e1;
+    border-color: #f1f5f9;
+    background: #f8fafc;
+}
 </style>
 @endpush
 
@@ -80,14 +112,14 @@
 <div class="data-panel">
     <div class="data-panel-header">
         <i class="bi bi-file-earmark-text"></i>
-        Showing {{ $blogs->firstItem() }}â€“{{ $blogs->lastItem() }} of {{ $blogs->total() }} blogs
+        Showing {{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} of {{ $blogs->total() }} blogs
     </div>
 
     @forelse($blogs as $blog)
     <div class="blog-item">
         <div class="blog-thumb">
             @if($blog->image)
-                <img src="{{ asset('storage/'.$blog->image) }}" alt="">
+                <img src="{{ $blog->image_url }}" alt="">
             @else
                 <i class="bi bi-image" style="color:rgba(255,255,255,.2)"></i>
             @endif
@@ -96,7 +128,7 @@
             <div class="blog-item-title">{{ Str::limit($blog->title, 60) }}</div>
             <div class="blog-item-sub">
                 <i class="bi bi-calendar3 me-1"></i>
-                {{ $blog->published_at?->format('d M Y') ?? 'No date' }}
+                {{ $blog->created_at->format('d M Y') }}
             </div>
         </div>
         <span class="cat-pill d-none d-md-inline">{{ $blog->category->name }}</span>
@@ -117,7 +149,7 @@
     <div class="text-center py-5" style="color:#94a3b8">
         <i class="bi bi-file-earmark-text" style="font-size:2.5rem;opacity:.3"></i>
         <p class="mt-3 mb-1" style="font-weight:600;color:#64748b">No blogs yet</p>
-        <a href="{{ route('admin.blogs.create') }}" style="font-size:.85rem;color:#6366f1;font-weight:600">Create your first blog â†’</a>
+        <a href="{{ route(‘admin.blogs.create’) }}" style="font-size:.85rem;color:#6366f1;font-weight:600">Create your first blog &rarr;</a>
     </div>
     @endforelse
 

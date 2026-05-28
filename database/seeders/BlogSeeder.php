@@ -10,74 +10,85 @@ class BlogSeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = Category::all();
+        $cat = Category::pluck('id', 'slug');
 
         $blogs = [
             [
-                'title'             => 'SSC CGL 2024 Admit Card Released',
-                'short_description' => 'Download your SSC CGL 2024 admit card from the official portal before the exam date.',
-                'content'           => 'The Staff Selection Commission has released the admit card for the SSC CGL 2024 Tier-1 examination. Candidates who registered for the exam can now download their hall ticket from the official SSC website. The exam is scheduled to be held from September 9 to September 26, 2024. Candidates must carry a printout of the admit card along with a valid photo ID proof to the examination centre. No candidate will be allowed entry without the hall ticket.',
-                'published_at'      => '2024-08-15',
+                'category_id'       => $cat['admit-card'],
+                'title'             => 'GATE 2027 Admit Card Released - Direct Download Link Inside',
+                'short_description' => 'The Indian Institute of Technology (IIT) has officially released the admit cards for the Graduate Aptitude Test in Engineering (GATE) 2027.',
+                'content'           => 'Candidates who registered for the GATE 2027 examination can now download their official admit cards from the online application portal. To download the hall ticket, candidates must enter their enrollment ID/email address and password. Make sure to verify your exam center location, reporting time, and papers chosen. It is mandatory to carry a printed color copy of this admit card along with an original valid photo identification card to the examination center without exception.',
             ],
             [
-                'title'             => 'UPSC Civil Services Result 2023 Declared',
-                'short_description' => 'UPSC has declared the final result of Civil Services Examination 2023. Check the merit list now.',
-                'content'           => 'The Union Public Service Commission (UPSC) has announced the final result of the Civil Services Examination 2023. A total of 1016 candidates have been recommended for appointment to IAS, IFS, IPS and other Group A and Group B Central Services. Candidates can check their result on the official UPSC website. The topper of this year\'s examination is from Rajasthan. Detailed score cards and marks will be uploaded separately on the official website.',
-                'published_at'      => '2024-04-16',
+                'category_id'       => $cat['result'],
+                'title'             => 'UPSC Civil Services 2025 Final Results Declared',
+                'short_description' => 'The Union Public Service Commission has announced the final recommendations list for the prestigious Civil Services Examination 2025.',
+                'content'           => 'The Union Public Service Commission (UPSC) has declared the final results for the CSE 2025 cycle today. A total of 933 candidates have been recommended for appointment to various administrative services including IAS, IFS, and IPS. The merit list is based on the combined marks scored in the Written Main Examination and the subsequent Personality Test interviews conducted between January and May. Candidates can view the full PDF list sorted by roll numbers on the official portal.',
             ],
             [
-                'title'             => 'IBPS PO Answer Key 2024 Out',
-                'short_description' => 'IBPS has released the provisional answer key for PO Prelims 2024. Raise objections by Oct 5.',
-                'content'           => 'The Institute of Banking Personnel Selection (IBPS) has published the provisional answer key for IBPS PO Prelims 2024. Candidates who appeared in the exam can download the answer key and compare their responses. The objection window is open from October 2 to October 5, 2024. Candidates can raise objections by paying a fee of Rs. 50 per question. The final answer key will be released after reviewing all objections.',
-                'published_at'      => '2024-10-02',
+                'category_id'       => $cat['job-notification'],
+                'title'             => 'ISRO Recruitment 2026: Openings for Scientist and Engineer SC Posts',
+                'short_description' => 'The Indian Space Research Organisation (ISRO) invites online applications from dynamic Computer Science, Electronics, and Mechanical graduates.',
+                'content'           => 'ISRO Centralised Recruitment Board (ICRB) has published a detailed notification offering rewarding career paths for young engineering professionals. There are a total of 320 vacancies across multiple space application centers. Eligible candidates must have a first-class B.E./B.Tech degree with an aggregate minimum of 65% marks. Selection will be stringently mapped through a national written examination followed by technical panel interviews for shortlisted profiles.',
             ],
             [
-                'title'             => 'RRB NTPC Syllabus 2024 – Complete Guide',
-                'short_description' => 'Get the complete RRB NTPC 2024 syllabus for CBT 1 and CBT 2 with topic-wise weightage.',
-                'content'           => 'The Railway Recruitment Board has released the official syllabus for RRB NTPC 2024. The examination consists of two stages – CBT 1 and CBT 2. CBT 1 covers Mathematics, General Intelligence & Reasoning, and General Awareness. CBT 2 covers General Awareness, Mathematics, and General Intelligence & Reasoning with a higher difficulty level. Candidates are advised to follow the official syllabus strictly and prepare from standard books. Mock tests and previous year papers are also recommended.',
-                'published_at'      => '2024-06-10',
+                'category_id'       => $cat['tech-tutorials'],
+                'title'             => 'Mastering Dynamic AJAX Filters in Laravel 11 Apps',
+                'short_description' => 'Learn how to build incredibly fast asynchronous searching and filtering interfaces using jQuery and Laravel partial blades.',
+                'content'           => 'Modern web development values fluid user interactions. Refreshing an entire web page just because a user wants to view items from a different category hurts user retention metrics. In this comprehensive guide, we unpack how to decouple your Eloquent controller queries, track user inputs natively with jQuery event listeners, and completely replace target DOM containers with pre-rendered server partial layouts inside asynchronous HTTP loops.',
             ],
             [
-                'title'             => 'SBI Clerk Recruitment 2024 – 13,735 Vacancies',
-                'short_description' => 'SBI has announced 13,735 vacancies for Junior Associates. Apply online before the last date.',
-                'content'           => 'State Bank of India (SBI) has released a bumper recruitment notification for Junior Associates (Customer Support & Sales) posts. A total of 13,735 vacancies are available across various states. Candidates with a graduation degree in any discipline are eligible to apply. The online application process has started and will remain open for 30 days. The selection process includes Preliminary Examination, Main Examination, and Local Language Test. The pay scale for the post ranges from Rs. 17,900 to Rs. 47,920.',
-                'published_at'      => '2024-09-01',
+                'category_id'       => $cat['admit-card'],
+                'title'             => 'IBPS PO 2026 Prelims Call Letter Available for Download',
+                'short_description' => 'The Institute of Banking Personnel Selection has issued the prelims admit card for Probationary Officers selection scale.',
+                'content'           => 'Registered bank job aspirants can access their online exam call letters starting today. The window to access downloads will remain operational until the day of your examination. You must log in using your registration number and date of birth (DD-MM-YYYY). Be sure to carefully read the extensive safety protocols and instructions concerning biometric capturing workflows outlined inside the document.',
             ],
             [
-                'title'             => 'CTET December 2024 Admit Card Download Link',
-                'short_description' => 'CBSE has activated the CTET December 2024 admit card link. Steps to download inside.',
-                'content'           => 'The Central Board of Secondary Education (CBSE) has released the admit card for CTET December 2024. Candidates can download their hall ticket from ctet.nic.in using their application number and date of birth. The exam will be conducted in two shifts – Paper 1 from 9:30 AM to 12:00 PM and Paper 2 from 2:30 PM to 5:00 PM. Candidates are advised to check the exam city and centre details carefully and report to the venue at least 90 minutes before the exam.',
-                'published_at'      => '2024-11-20',
+                'category_id'       => $cat['result'],
+                'title'             => 'JEE Advanced 2026 Answer Key and Response Sheet Update',
+                'short_description' => 'The organizing IIT has uploaded candidate response sheets alongside the preliminary key for challenge submissions.',
+                'content'           => 'Students who appeared for both papers of JEE Advanced can now evaluate their tentative raw scores. The portal allows matching personal recorded responses against the official master key. If any student flags an analytical error in standard marking parameters, they can lodge an online challenge by paying a nominal fee per question before the server access closes this weekend.',
             ],
             [
-                'title'             => 'NEET UG 2024 Result – Scorecard & Merit List',
-                'short_description' => 'NTA has declared the NEET UG 2024 result. Download your scorecard and check the merit list.',
-                'content'           => 'The National Testing Agency (NTA) has declared the NEET UG 2024 result on its official website neet.ntaonline.in. Candidates can log in using their application number and date of birth to check their scores. This year, more than 24 lakh students appeared for the examination. The merit list has been prepared based on the marks obtained in Physics, Chemistry, and Biology. Candidates qualifying the NEET UG cut-off are eligible for MBBS, BDS, AYUSH, and other medical courses.',
-                'published_at'      => '2024-06-04',
+                'category_id'       => $cat['job-notification'],
+                'title'             => 'BARC OCES/DGFS 2026 Professional Trainee Opportunities',
+                'short_description' => 'Bhabha Atomic Research Centre announces orientation courses for engineering graduates and science post-graduates.',
+                'content'           => 'BARC invites high-caliber scientific minds to secure recruitment into its cutting-edge nuclear research facilities. Applicants can qualify via either their valid GATE scorecard or by taking the dedicated BARC computer-based screening test. Successful trainees undergo rigorous engineering specialization courses and graduate straight into specialized Officer positions within the Department of Atomic Energy.',
             ],
             [
-                'title'             => 'Delhi Police Constable Answer Key 2024',
-                'short_description' => 'SSC has released the Delhi Police Constable answer key. Objection window closes Nov 10.',
-                'content'           => 'The Staff Selection Commission has published the provisional answer key for the Delhi Police Constable Exam 2024. Candidates can download the response sheet and answer key from the official SSC portal. The exam was conducted in computer-based mode across multiple shifts. Objections against any answer can be raised till November 10, 2024 by paying Rs. 100 per question. Final answer keys will be published post scrutiny and the result is expected within 45 days.',
-                'published_at'      => '2024-11-05',
+                'category_id'       => $cat['tech-tutorials'],
+                'title'             => 'Understanding Database Indexing Strategies in MySQL',
+                'short_description' => 'Why are your database filter loops lagging? Learn how to strategically use indexes to optimize heavy query sorting.',
+                'content'           => 'As your blogs table scales from 10 rows to 100,000 records, standard sequential table scans run slower. By strategically placing indexes on heavily filtered columns like category_id or created_at, you construct lightning-fast B-Tree lookup mechanisms. This guide details when to use single-column indexes, composite index patterns, and how to read internal query execution logs to spot system performance traps.',
             ],
             [
-                'title'             => 'UP Police Constable Recruitment 2024 – 60,244 Posts',
-                'short_description' => 'UPPRPB announces 60,244 constable vacancies. Check eligibility and apply before the deadline.',
-                'content'           => 'The Uttar Pradesh Police Recruitment and Promotion Board (UPPRPB) has released a mega recruitment notification for 60,244 Constable Civil Police posts. This is one of the largest police recruitment drives in the country. Male and female candidates between 18 to 22 years (with relaxation for reserved categories) are eligible to apply. Selection is based on a written exam, physical efficiency test, and document verification. The application form is available on uppbpb.gov.in.',
-                'published_at'      => '2024-12-01',
+                'category_id'       => $cat['admit-card'],
+                'title'             => 'SSC CGL 2026 Tier-1 Exam Schedule and City Intimation Slip',
+                'short_description' => 'The Staff Selection Commission has activated the status link to check exam dates, shift timing, and assigned testing cities.',
+                'content'           => 'The Staff Selection Commission has initiated regional rollouts of exam city location slips for the Combined Graduate Level Examination Tier-1. This preliminary status release ensures candidates can book necessary travel accommodations in advance. The actual entry admit card containing exact block addresses will be unlocked for printing precisely four days prior to your assigned exam date.',
             ],
             [
-                'title'             => 'SSC MTS 2024 Syllabus and Exam Pattern',
-                'short_description' => 'Complete SSC MTS 2024 syllabus with subject-wise topics and marking scheme explained.',
-                'content'           => 'The Staff Selection Commission Multi Tasking Staff (SSC MTS) 2024 exam will be held in Computer Based Test mode. The exam consists of two sessions on the same day. Session 1 covers Numerical and Mathematical Ability and Reasoning Ability & Problem Solving. Session 2 covers General Awareness, English Language & Comprehension. There is no negative marking for Session 1 and a deduction of 1 mark per wrong answer in Session 2. Candidates should focus on speed and accuracy for this exam.',
-                'published_at'      => '2024-07-22',
+                'category_id'       => $cat['result'],
+                'title'             => 'GATE 2026: IIT Bombay Releases Official Cut-Off Marks',
+                'short_description' => 'Check the official category-wise qualifying marks for Computer Science, Data Science, and core branches.',
+                'content'           => 'IIT Bombay has published the formal score statistics and qualifying cut-offs alongside personal scorecard links. For the Computer Science and Information Technology (CS) stream, the general category threshold settled at a competitive margin. Scores are calculated out of a normalized standard scale of 1000, and candidates can now utilize these to register for M.Tech admissions via the COAP portal.',
+            ],
+            [
+                'category_id'       => $cat['job-notification'],
+                'title'             => 'DRDO Recruitment: Openings for Junior Research Fellows (JRF)',
+                'short_description' => 'Defence Research and Development Organisation invites applications for specialized computational fellowship programs.',
+                'content'           => 'The Combat Vehicles Research and Development Establishment (CVRDE), a premier laboratory under DRDO, is seeking highly motivated research fellowship applications. The chosen fellows will collaborate on complex AI vision systems and next-generation military simulation frameworks. The initial tenure spans two full operational years with attractive performance-linked stipend enhancements.',
+            ],
+            [
+                'category_id'       => $cat['tech-tutorials'],
+                'title'             => 'Securing Laravel REST APIs Against Web Vulnerabilities',
+                'short_description' => 'A deep dive into cross-site scripting (XSS), SQL Injection defenses, and implementing secure request routing.',
+                'content'           => 'Security is never an afterthought. Thankfully, Laravel\'s core framework layers run robust default shields like automatic SQL param binding via Eloquent and token validation checks across post routes. However, raw inputs must always be handled with caution when rendering dynamic rich text scripts or injecting unfiltered query parameters directly into database queries. Learn to sanitize fields safely using built-in middleware configurations.',
             ],
         ];
 
-        foreach ($blogs as $index => $blogData) {
-            $category = $categories[$index % $categories->count()];
-            Blog::create(array_merge($blogData, ['category_id' => $category->id]));
+        foreach ($blogs as $blogData) {
+            Blog::create($blogData);
         }
     }
 }

@@ -12,11 +12,6 @@ class Blog extends Model
         'content',
         'image',
         'category_id',
-        'published_at',
-    ];
-
-    protected $casts = [
-        'published_at' => 'date',
     ];
 
     protected $appends = ['image_url'];

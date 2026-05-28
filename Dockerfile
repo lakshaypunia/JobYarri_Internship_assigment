@@ -31,6 +31,12 @@ COPY . .
 # Install PHP dependencies (no dev)
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
+# PHP upload config
+RUN echo "upload_tmp_dir = /tmp" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "upload_max_filesize = 10M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 12M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && chmod 1777 /tmp
+
 # Set storage permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache

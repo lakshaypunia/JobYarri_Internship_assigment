@@ -94,7 +94,7 @@
 {{-- â”€â”€ Hero â”€â”€ --}}
 <div class="article-hero">
     @if($blog->image)
-        <img src="{{ asset('storage/'.$blog->image) }}" alt="{{ $blog->title }}">
+        <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}">
         <div class="article-title-overlay">
             <div class="container">
                 <span class="category-badge mb-2 d-inline-block">{{ $blog->category->name }}</span>
@@ -130,7 +130,7 @@
                 <div class="d-flex gap-2 flex-wrap">
                     <span class="meta-chip">
                         <i class="bi bi-calendar3"></i>
-                        {{ $blog->published_at?->format('d M Y') ?? $blog->created_at->format('d M Y') }}
+                        {{ $blog->created_at->format('d M Y') }}
                     </span>
                     <span class="meta-chip">
                         <i class="bi bi-tag"></i>

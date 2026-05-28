@@ -4,19 +4,20 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = ['Admit Card', 'Result', 'Answer Key', 'Syllabus', 'Jobs'];
+        $categories = [
+            ['name' => 'Admit Card',       'slug' => 'admit-card'],
+            ['name' => 'Result',           'slug' => 'result'],
+            ['name' => 'Job Notification', 'slug' => 'job-notification'],
+            ['name' => 'Tech Tutorials',   'slug' => 'tech-tutorials'],
+        ];
 
-        foreach ($categories as $name) {
-            Category::updateOrCreate(
-                ['slug' => Str::slug($name)],
-                ['name' => $name, 'slug' => Str::slug($name)]
-            );
+        foreach ($categories as $cat) {
+            Category::create($cat);
         }
     }
 }

@@ -30,7 +30,7 @@ class BlogController extends Controller
         }
 
         if ($request->filled('date')) {
-            $query->whereDate('published_at', $request->date);
+            $query->whereDate('created_at', $request->date);
         }
 
         if ($request->filled('search')) {

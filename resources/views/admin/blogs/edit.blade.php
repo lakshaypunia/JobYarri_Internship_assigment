@@ -74,7 +74,7 @@ textarea.field-input { resize:vertical;line-height:1.6; }
             <div class="form-panel-body">
                 @if($blog->image)
                 <div class="current-img">
-                    <img src="{{ asset('storage/'.$blog->image) }}" alt="Current image">
+                    <img src="{{ $blog->image_url }}" alt="Current image">
                     <span class="current-img-label">Current image</span>
                 </div>
                 @endif
@@ -103,7 +103,7 @@ textarea.field-input { resize:vertical;line-height:1.6; }
                     <label class="field-label">Category <span class="req">*</span></label>
                     <select name="category_id"
                             class="field-input {{ $errors->has('category_id') ? 'is-invalid' : '' }}" required>
-                        <option value="">Choose categoryâ€¦</option>
+                        <option value="">Choose category...</option>
                         @foreach($categories as $cat)
                         <option value="{{ $cat->id }}"
                             {{ old('category_id', $blog->category_id) == $cat->id ? 'selected' : '' }}>
@@ -113,19 +113,13 @@ textarea.field-input { resize:vertical;line-height:1.6; }
                     </select>
                     @error('category_id')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
-                <div>
-                    <label class="field-label">Publish Date</label>
-                    <input type="date" name="published_at"
-                           value="{{ old('published_at', $blog->published_at?->format('Y-m-d')) }}"
-                           class="field-input {{ $errors->has('published_at') ? 'is-invalid' : '' }}">
-                    @error('published_at')<div class="field-error">{{ $message }}</div>@enderror
-                </div>
             </div>
         </div>
 
         <div class="d-flex flex-column gap-2">
-            <button type="submit" class="btn-submit w-100 justify-content-center">
-                <i class="bi bi-check2"></i> Save Changes
+            <button type="submit" class="btn-submit w-100 justify-content-center" data-loading="Saving...">
+                <i class="bi bi-check2"></i>
+                <span>Save Changes</span>
             </button>
             <a href="{{ route('admin.blogs.index') }}" class="btn-cancel justify-content-center">
                 Cancel
@@ -145,6 +139,7 @@ function handleImageUpload(input) {
         p.classList.remove('d-none');
     }
 }
+
 </script>
 @endpush
 

@@ -86,21 +86,21 @@ textarea.field-input { resize: vertical; line-height: 1.6; }
                     <label class="field-label">Title <span class="req">*</span></label>
                     <input type="text" name="title" value="{{ old('title') }}"
                            class="field-input {{ $errors->has('title') ? 'is-invalid' : '' }}"
-                           placeholder="Enter a compelling blog title…" required>
+                           placeholder="Enter a compelling blog title..." required>
                     @error('title')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="mb-3">
                     <label class="field-label">Short Description <span class="req">*</span></label>
                     <textarea name="short_description" rows="2"
                               class="field-input {{ $errors->has('short_description') ? 'is-invalid' : '' }}"
-                              placeholder="Brief summary shown on the listing page…" required>{{ old('short_description') }}</textarea>
+                              placeholder="Brief summary shown on the listing page..." required>{{ old('short_description') }}</textarea>
                     @error('short_description')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
                 <div>
                     <label class="field-label">Full Content <span class="req">*</span></label>
                     <textarea name="content" rows="12"
                               class="field-input {{ $errors->has('content') ? 'is-invalid' : '' }}"
-                              placeholder="Write the full blog content here…" required>{{ old('content') }}</textarea>
+                              placeholder="Write the full blog content here..." required>{{ old('content') }}</textarea>
                     @error('content')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
             </div>
@@ -139,7 +139,7 @@ textarea.field-input { resize: vertical; line-height: 1.6; }
                     <label class="field-label">Category <span class="req">*</span></label>
                     <select name="category_id"
                             class="field-input {{ $errors->has('category_id') ? 'is-invalid' : '' }}" required>
-                        <option value="">Choose category…</option>
+                        <option value="">Choose category...</option>
                         @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
                             {{ $cat->name }}
@@ -148,18 +148,13 @@ textarea.field-input { resize: vertical; line-height: 1.6; }
                     </select>
                     @error('category_id')<div class="field-error">{{ $message }}</div>@enderror
                 </div>
-                <div>
-                    <label class="field-label">Publish Date</label>
-                    <input type="date" name="published_at" value="{{ old('published_at') }}"
-                           class="field-input {{ $errors->has('published_at') ? 'is-invalid' : '' }}">
-                    @error('published_at')<div class="field-error">{{ $message }}</div>@enderror
-                </div>
             </div>
         </div>
 
         <div class="d-flex flex-column gap-2">
-            <button type="submit" class="btn-submit w-100 justify-content-center">
-                <i class="bi bi-send"></i> Publish Blog
+            <button type="submit" class="btn-submit w-100 justify-content-center" data-loading="Publishing...">
+                <i class="bi bi-send"></i>
+                <span>Publish Blog</span>
             </button>
             <a href="{{ route('admin.blogs.index') }}" class="btn-cancel justify-content-center">
                 Cancel
@@ -184,5 +179,6 @@ function handleImageUpload(input) {
         area.classList.add('has-file');
     }
 }
+
 </script>
 @endpush

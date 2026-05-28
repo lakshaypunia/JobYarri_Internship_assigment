@@ -6,7 +6,7 @@
             {{-- Thumbnail --}}
             <div class="bc-thumb">
                 @if($blog->image)
-                    <img src="{{ asset('storage/'.$blog->image) }}" alt="{{ $blog->title }}" loading="lazy">
+                    <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" loading="lazy">
                 @else
                     <div class="bc-thumb-placeholder">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
@@ -29,7 +29,7 @@
                 <div class="bc-footer">
                     <div class="bc-date">
                         <i class="bi bi-calendar3"></i>
-                        {{ $blog->published_at?->format('d M Y') ?? $blog->created_at->format('d M Y') }}
+                        {{ $blog->created_at->format('d M Y') }}
                     </div>
                     <span class="bc-cta">Read <i class="bi bi-arrow-right"></i></span>
                 </div>

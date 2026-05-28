@@ -21,6 +21,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return view('admin.dashboard', [
                 'totalBlogs'      => Blog::count(),
                 'totalCategories' => Category::count(),
+                'blogsThisMonth'  => Blog::whereMonth('created_at', now()->month)
+                                         ->whereYear('created_at', now()->year)->count(),
                 'recentBlogs'     => Blog::with('category')->latest()->take(5)->get(),
             ]);
         })->name('dashboard');

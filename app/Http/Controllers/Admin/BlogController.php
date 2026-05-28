@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Category;
-use App\Services\UploadThingService;
+use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class BlogController extends Controller
 {
@@ -22,19 +23,18 @@ class BlogController extends Controller
         return view('admin.blogs.create', compact('categories'));
     }
 
-    public function store(Request $request, UploadThingService $uploader)
+    public function store(Request $request)
     {
         $data = $request->validate([
             'title'             => 'required|string|max:255',
             'short_description' => 'required|string|max:500',
             'content'           => 'required|string',
             'category_id'       => 'required|exists:categories,id',
-            'published_at'      => 'nullable|date',
             'image'             => 'nullable|image|max:4096',
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $uploader->upload($request->file('image'));
+            $data['image'] = $this->storeImage($request->file('image'));
         }
 
         Blog::create($data);
@@ -49,19 +49,18 @@ class BlogController extends Controller
         return view('admin.blogs.edit', compact('blog', 'categories'));
     }
 
-    public function update(Request $request, Blog $blog, UploadThingService $uploader)
+    public function update(Request $request, Blog $blog)
     {
         $data = $request->validate([
             'title'             => 'required|string|max:255',
             'short_description' => 'required|string|max:500',
             'content'           => 'required|string',
             'category_id'       => 'required|exists:categories,id',
-            'published_at'      => 'nullable|date',
             'image'             => 'nullable|image|max:4096',
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $uploader->upload($request->file('image'));
+            $data['image'] = $this->storeImage($request->file('image'));
         } else {
             unset($data['image']);
         }
@@ -70,6 +69,17 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Blog updated successfully.');
+    }
+
+    private function storeImage(UploadedFile $file): string
+    {
+        $cloudName = config('services.cloudinary.cloud_name');
+
+        if ($cloudName && $cloudName !== 'your_cloud_name') {
+            return (new CloudinaryService())->upload($file);
+        }
+
+        return $file->store('blogs', 'public');
     }
 
     public function destroy(Blog $blog)

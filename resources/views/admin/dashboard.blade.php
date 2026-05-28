@@ -97,11 +97,11 @@
     <div class="col-6 col-xl-3">
         <div class="stat-card" style="background:linear-gradient(135deg,#10b981,#34d399);color:#fff">
             <div class="stat-card-icon" style="background:rgba(255,255,255,.18)">
-                <i class="bi bi-eye"></i>
+                <i class="bi bi-calendar-plus"></i>
             </div>
-            <div class="stat-card-value">âˆž</div>
-            <div class="stat-card-label">Public Readers</div>
-            <div class="stat-card-watermark"><i class="bi bi-eye"></i></div>
+            <div class="stat-card-value">{{ $blogsThisMonth }}</div>
+            <div class="stat-card-label">Added This Month</div>
+            <div class="stat-card-watermark"><i class="bi bi-calendar-plus"></i></div>
         </div>
     </div>
     <div class="col-6 col-xl-3">
@@ -109,7 +109,7 @@
             <div class="stat-card-icon" style="background:rgba(255,255,255,.18)">
                 <i class="bi bi-calendar-check"></i>
             </div>
-            <div class="stat-card-value">{{ now()->format('M') }}</div>
+            <div class="stat-card-value">{{ now()->format('M Y') }}</div>
             <div class="stat-card-label">Current Month</div>
             <div class="stat-card-watermark"><i class="bi bi-calendar-check"></i></div>
         </div>
@@ -131,14 +131,14 @@
                 <div class="blog-row">
                     <div class="blog-row-thumb">
                         @if($blog->image)
-                            <img src="{{ asset('storage/'.$blog->image) }}" alt="">
+                            <img src="{{ $blog->image_url }}" alt="">
                         @endif
                     </div>
                     <div class="flex-grow-1 min-width-0">
                         <div class="blog-row-title">{{ Str::limit($blog->title, 52) }}</div>
                         <div class="blog-row-meta">
                             <i class="bi bi-calendar3 me-1"></i>
-                            {{ $blog->published_at?->format('d M Y') ?? 'â€”' }}
+                            {{ $blog->created_at->format('d M Y') }}
                         </div>
                     </div>
                     <span class="cat-chip">{{ $blog->category->name }}</span>

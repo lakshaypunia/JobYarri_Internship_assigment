@@ -263,13 +263,27 @@
                                placeholder="Enter your password" required>
                     </div>
                 </div>
-                <button type="submit" class="btn-signin">
-                    <i class="bi bi-box-arrow-in-right"></i> Sign In
+                <button type="submit" id="signinBtn" class="btn-signin">
+                    <i class="bi bi-box-arrow-in-right" id="signinIcon"></i>
+                    <span id="signinText">Sign In</span>
                 </button>
             </form>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.querySelector('form').addEventListener('submit', function () {
+        var btn  = document.getElementById('signinBtn');
+        var icon = document.getElementById('signinIcon');
+        var text = document.getElementById('signinText');
+        requestAnimationFrame(function () {
+            btn.disabled      = true;
+            btn.style.opacity = '0.72';
+            icon.className    = 'spinner-border spinner-border-sm';
+            text.textContent  = 'Signing in...';
+        });
+    });
+    </script>
 </body>
 </html>

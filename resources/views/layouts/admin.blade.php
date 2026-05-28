@@ -337,5 +337,25 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @stack('scripts')
+
+<script>
+// Universal loading state for all admin form submit buttons
+document.addEventListener('submit', function (e) {
+    var form = e.target;
+    var btn  = form.querySelector('[type="submit"][data-loading]');
+    if (!btn) return;
+
+    // Use requestAnimationFrame so the form data is captured before disabling
+    requestAnimationFrame(function () {
+        var icon = btn.querySelector('i');
+        var span = btn.querySelector('span');
+        btn.disabled     = true;
+        btn.style.opacity = '0.72';
+        if (icon) icon.className = 'spinner-border spinner-border-sm';
+        if (span) span.textContent = btn.getAttribute('data-loading');
+        else      btn.textContent  = btn.getAttribute('data-loading');
+    });
+});
+</script>
 </body>
 </html>

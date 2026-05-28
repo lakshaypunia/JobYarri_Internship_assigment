@@ -48,8 +48,9 @@
                                placeholder="e.g. Admit Card" required>
                         @error('name')<div class="field-error">{{ $message }}</div>@enderror
                     </div>
-                    <button type="submit" class="btn-add">
-                        <i class="bi bi-plus-lg"></i> Add Category
+                    <button type="submit" class="btn-add" data-loading="Adding...">
+                        <i class="bi bi-plus-lg"></i>
+                        <span>Add Category</span>
                     </button>
                 </form>
 
