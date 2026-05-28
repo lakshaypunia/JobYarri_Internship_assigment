@@ -15,7 +15,7 @@ services:
       - key: APP_KEY
         sync: false   # run: php artisan key:generate --show  — paste the output here
       - key: APP_URL
-        value: https://blogyaari.onrender.com   # update with your actual Render URL
+        value: https://jobyarri-internship-assigment.onrender.com
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST

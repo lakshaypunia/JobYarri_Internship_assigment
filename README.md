@@ -2,7 +2,7 @@
 
 A full-stack blog management system built with Laravel 11, featuring a modern public-facing blog with live AJAX filtering and a polished admin panel for complete content management.
 
-**Live URL:** _https://your-app.onrender.com_ (update after deployment)
+**Live URL:** https://jobyarri-internship-assigment.onrender.com
 
 ---
 
