@@ -38,7 +38,35 @@
         line-height: 1.9;
         color: #334155;
     }
-    .article-body p { margin-bottom: 1.25rem; }
+    .article-body p  { margin-bottom: 1.25rem; }
+    .article-body h1,.article-body h2,.article-body h3,
+    .article-body h4,.article-body h5,.article-body h6 {
+        font-weight: 700; color: #0f172a; margin: 1.75rem 0 .75rem;
+    }
+    .article-body h1 { font-size: 1.7rem; }
+    .article-body h2 { font-size: 1.4rem; }
+    .article-body h3 { font-size: 1.2rem; }
+    .article-body ul, .article-body ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .article-body li { margin-bottom: .35rem; }
+    .article-body strong { font-weight: 700; color: #0f172a; }
+    .article-body a { color: var(--accent); text-decoration: underline; }
+    .article-body blockquote {
+        border-left: 3px solid var(--accent); padding-left: 1rem;
+        color: #64748b; font-style: italic; margin: 1.5rem 0;
+    }
+    .article-body table {
+        width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; font-size: .95rem;
+    }
+    .article-body table th, .article-body table td {
+        border: 1px solid #e2e8f0; padding: .6rem .9rem; text-align: left;
+    }
+    .article-body table th { background: #f8fafc; font-weight: 700; color: #0f172a; }
+    .article-body table tr:nth-child(even) td { background: #fafbff; }
+    .article-body pre {
+        background: #1e293b; color: #e2e8f0; padding: 1rem 1.25rem;
+        border-radius: 10px; overflow-x: auto; font-size: .88rem; margin-bottom: 1.25rem;
+    }
+    .article-body img { max-width: 100%; border-radius: 10px; margin: 1rem 0; }
 
     .article-card {
         background: #fff;
@@ -148,7 +176,7 @@
                 <div class="article-divider"></div>
 
                 <div class="article-body">
-                    {!! nl2br(e($blog->content)) !!}
+                    {!! $blog->content !!}
                 </div>
             </div>
 

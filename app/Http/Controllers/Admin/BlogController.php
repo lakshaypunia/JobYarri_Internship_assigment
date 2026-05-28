@@ -71,6 +71,24 @@ class BlogController extends Controller
             ->with('success', 'Blog updated successfully.');
     }
 
+    public function uploadImage(Request $request)
+    {
+        try {
+            // Jodit sends as files[0], but accept plain 'file' too
+            $file = $request->file('file')
+                ?? ($request->file('files') ? $request->file('files')[0] : null);
+
+            if (!$file || !$file->isValid()) {
+                return response()->json(['error' => 'No valid file received'], 422);
+            }
+
+            $url = $this->storeImage($file);
+            return response()->json(['url' => $url]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     private function storeImage(UploadedFile $file): string
     {
         $cloudName = config('services.cloudinary.cloud_name');

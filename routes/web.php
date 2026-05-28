@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('dashboard');
 
         Route::resource('blogs', AdminBlogController::class)->except('show');
+        Route::post('upload-image', [AdminBlogController::class, 'uploadImage'])->name('blogs.upload-image');
         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
         Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
         Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');

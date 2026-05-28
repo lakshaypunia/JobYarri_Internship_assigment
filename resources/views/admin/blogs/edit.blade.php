@@ -59,10 +59,9 @@ textarea.field-input { resize:vertical;line-height:1.6; }
                 </div>
                 <div>
                     <label class="field-label">Full Content <span class="req">*</span></label>
-                    <textarea name="content" rows="12"
-                              class="field-input {{ $errors->has('content') ? 'is-invalid' : '' }}"
-                              required>{{ old('content', $blog->content) }}</textarea>
-                    @error('content')<div class="field-error">{{ $message }}</div>@enderror
+                    <textarea name="content" id="contentEditor"
+                              class="field-input {{ $errors->has('content') ? 'is-invalid' : '' }}">{{ old('content', $blog->content) }}</textarea>
+                    @error('content')<div class="field-error mt-1">{{ $message }}</div>@enderror
                 </div>
             </div>
         </div>
@@ -139,7 +138,37 @@ function handleImageUpload(input) {
         p.classList.remove('d-none');
     }
 }
+</script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3/build/jodit.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jodit@3/build/jodit.min.js"></script>
+<script>
+new Jodit('#contentEditor', {
+    height: 500,
+    language: 'en',
+    uploader: {
+        url: '{{ route("admin.blogs.upload-image") }}',
+        headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') },
+        filesVariableName: () => 'file',
+        isSuccess: (resp) => !!resp.url,
+        process: (resp) => ({ files: [resp.url], baseurl: '', error: resp.error }),
+        defaultHandlerSuccess: function (data) {
+            if (data.files && data.files.length) {
+                this.selection.insertImage(data.files[0], null, 300);
+            }
+        },
+        error: function (e) { this.j.e.fire('errorMessage', e.getMessage()); }
+    },
+    buttons: 'bold,italic,underline,strikethrough,|,ul,ol,|,paragraph,|,left,center,right,justify,|,table,link,image,|,hr,|,undo,redo,|,source',
+    buttonsMD: 'bold,italic,|,ul,ol,|,paragraph,|,table,link,image,|,source',
+    buttonsSM: 'bold,italic,|,ul,ol,|,source',
+    toolbarAdaptive: true,
+    askBeforePasteHTML: false,
+    askBeforePasteFromWord: false,
+    defaultActionOnPaste: 'insert_as_html',
+    cleanHTML: { cleanOnPaste: false },
+    placeholder: 'Write the full blog content here...',
+});
 </script>
 @endpush
 
